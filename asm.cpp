@@ -9,8 +9,8 @@ string mapping[15] = {"EXT", "LDA", "LDI", "STA", "STI", "ADD", "SUB", "JMP", "J
 string mapping2[16] = {"NEG", "COM", "CLR", "SET", "RTL", "RTR", "LSL", "LSR", "ASR", "TST", "CLC", "SEC", "TCA", "TVA", "JAL", "NOP"};
 
 int checkFirst(string firstT) {
-  for (int i = 0; i < (sizeof(mapping)/sizeof(int)); ++i) {
-    if (firsT.compare(mapping[i]) == 0) {
+  for (int i = 0; i < (sizeof(mapping)/sizeof(mapping[0])); ++i) {
+    if (firstT.compare(mapping[i]) == 0) {
       return i;
     }
   }
@@ -18,8 +18,8 @@ int checkFirst(string firstT) {
 }
 
 int checkSecond(string firstT) {
-  for (int i = 0; i < (sizeof(mapping2)/sizeof(int)); ++i) {
-    if (firsT.compare(mapping2[i]) == 0) {
+  for (int i = 0; i < (sizeof(mapping2)/sizeof(mapping[0])); ++i) {
+    if (firstT.compare(mapping2[i]) == 0) {
       return i;
     }
   }
@@ -34,11 +34,10 @@ int main (int argc, char* argv[]) {
   int curr_pos = 0;
 
   string fileName;
-  string #include <.h>;
   ifstream file;
   char c;
   int size = 0;
-
+  string in;
   if (argc > 3) {
     return 1;
   } else if (argc == 1){
@@ -47,7 +46,7 @@ int main (int argc, char* argv[]) {
       size++;
     }
   } else if (argc <= 3) {
-    fileName = string(arcgv[1]);
+    fileName = string(argv[1]);
     file.open(fileName);
     if (!file) {
       return 5;
@@ -62,7 +61,7 @@ int main (int argc, char* argv[]) {
   int mapCheck2;
 
   int type = 0;
-  int subNum
+  int subNum;
   int counter;
   int count = 0;
 
@@ -126,7 +125,7 @@ int main (int argc, char* argv[]) {
       buffer[curr_pos] = val;
     } else if (mapCheck1 != -1 && mapCheck2 == -1) {
       in = in.substr(3, in.length());
-      type = mapCheck1
+      type = mapCheck1;
       argument = true;
     }
 
