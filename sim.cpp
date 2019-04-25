@@ -40,7 +40,7 @@ map<int, tuple<bool, unsigned long long int>> tableCOL;
 unsigned long long int correctSAT;
 unsigned long long int incorrectSAT;
 unsigned long long int collisionSAT;
-map<int, tuple<int, unsigned long long int>> tableSAT;
+map<unsigned int, tuple<int, unsigned long long int>> tableSAT;
 
 unsigned long long int correctTWO;
 unsigned long long int incorrectTWO;
@@ -127,7 +127,7 @@ int sat() {
         get<0>(tableSAT[get<0>(in) & 1023]) -= 1;
       }
     }
-  } else if ((get<0>(tableSAT[get<0>(in) & 1023]) >= 2 && get<2>(in) == 'T') || (get<0>(tableSAT[get<0>(in) & 1023]) < 2 && get<2>(in) == 'N')) {
+  } else if ((get<0>(tableSAT[get<0>(in) & 1023]) >= 2 && get<2>(in) == 'T') || (get<0>(tableSAT[get<0>(in) & 1023]) <= 1 && get<2>(in) == 'N')) {
     correctSAT++;
   } else {
     incorrectSAT++;
