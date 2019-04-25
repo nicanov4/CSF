@@ -48,7 +48,26 @@ int sta() {
 }
 
 int bah() {
-  return 1;
+  auto in = make_tuple(branch_adress, target_adress, flag);
+  map<int, tuple<bool, unsigned long long int>> table;
+  if (get<1>(table[get<0>(in) & 1023]) != get<0>(in)) {
+    collisionBAH++;
+    get<1>(table[get<0>(in) & 1023]) = get<0>(in);
+    if (get<2>(in) == 'T') {
+      get<0>(table[get<0>(in) & 1023]) = 1;
+    } else {
+      get<0>(table[get<0>(in) & 1023]) = 0;
+    }
+  } else if ((get<0>(table[get<0>(in) & 1023]) && get<2>(in) == 'T') || (!get<0>(table[get<0>(in) & 1023]) && get<2>(in) == 'N')) {
+    correctBAH++;
+  } else {
+    incorrectBAH++;
+    if (get<2>(in) == 'T') {
+      get<0>(table[get<0>(in) & 1023]) = 1;
+    } else {
+      get<0>(table[get<0>(in) & 1023]) = 0;
+    }
+  }
 }
 
 int tah() {
