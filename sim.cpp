@@ -23,10 +23,14 @@ map<int, tuple<bool, unsigned long long int>> tableBAH;
 unsigned long long int correctTAH;
 unsigned long long int incorrectTAH;
 unsigned long long int collisionTAH;
+map<int, tuple<bool, unsigned long long int>> tableTAH;
+
 
 unsigned long long int correctBTA;
 unsigned long long int incorrectBTA;
 unsigned long long int collisionBTA;
+map<int, tuple<bool, unsigned long long int>> tableBTA;
+
 
 unsigned long long int correctCOL;
 unsigned long long int incorrectCOL;
@@ -72,7 +76,26 @@ int bah() {
 }
 
 int tah() {
-  return 1;
+  auto in = make_tuple(branch_adress, target_adress, flag);
+
+  if (get<1>(tableBAH[get<1>(in) & 1023]) != get<1>(in)) {
+    collisionTAH++;
+    get<1>(tableTAH[get<1>(in) & 1023]) = get<1>(in);
+    if (get<2>(in) == 'T') {
+      get<0>(tableTAH[get<1>(in) & 1023]) = 1;
+    } else {
+      get<0>(tableTAH[get<1>(in) & 1023]) = 0;
+    }
+  } else if ((get<0>(tableTAH[get<1>(in) & 1023]) && get<2>(in) == 'T') || (!get<0>(tableTAH[get<1>(in) & 1023]) && get<2>(in) == 'N')) {
+    correctTAH++;
+  } else {
+    incorrectTAH++;
+    if (get<2>(in) == 'T') {
+      get<0>(tableTAH[get<1>(in) & 1023]) = 1;
+    } else {
+      get<0>(tableTAH[get<1>(in) & 1023]) = 0;
+    }
+  }
 }
 
 int bta() {
