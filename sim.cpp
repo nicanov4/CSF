@@ -18,6 +18,7 @@ unsigned long long int collisionSTA;
 unsigned long long int correctBAH;
 unsigned long long int incorrectBAH;
 unsigned long long int collisionBAH;
+map<int, tuple<bool, unsigned long long int>> tableBAH;
 
 unsigned long long int correctTAH;
 unsigned long long int incorrectTAH;
@@ -49,23 +50,23 @@ int sta() {
 
 int bah() {
   auto in = make_tuple(branch_adress, target_adress, flag);
-  map<int, tuple<bool, unsigned long long int>> table;
-  if (get<1>(table[get<0>(in) & 1023]) != get<0>(in)) {
+
+  if (get<1>(tableBAH[get<0>(in) & 1023]) != get<0>(in)) {
     collisionBAH++;
-    get<1>(table[get<0>(in) & 1023]) = get<0>(in);
+    get<1>(tableBAH[get<0>(in) & 1023]) = get<0>(in);
     if (get<2>(in) == 'T') {
-      get<0>(table[get<0>(in) & 1023]) = 1;
+      get<0>(tableBAH[get<0>(in) & 1023]) = 1;
     } else {
-      get<0>(table[get<0>(in) & 1023]) = 0;
+      get<0>(tableBAH[get<0>(in) & 1023]) = 0;
     }
-  } else if ((get<0>(table[get<0>(in) & 1023]) && get<2>(in) == 'T') || (!get<0>(table[get<0>(in) & 1023]) && get<2>(in) == 'N')) {
+  } else if ((get<0>(tableBAH[get<0>(in) & 1023]) && get<2>(in) == 'T') || (!get<0>(tableBAH[get<0>(in) & 1023]) && get<2>(in) == 'N')) {
     correctBAH++;
   } else {
     incorrectBAH++;
     if (get<2>(in) == 'T') {
-      get<0>(table[get<0>(in) & 1023]) = 1;
+      get<0>(tableBAH[get<0>(in) & 1023]) = 1;
     } else {
-      get<0>(table[get<0>(in) & 1023]) = 0;
+      get<0>(tableBAH[get<0>(in) & 1023]) = 0;
     }
   }
 }
@@ -125,24 +126,18 @@ int main (int argc, char* argv[]) {
 
   while (scanf("%llx %llx %c", &branch_adress, &target_adress, &flag)) {
     sta();
-    printf("STA: %20llu %20llu %20llu\n", correctSTA, incorrectSTA, collisionSTA);
-
     bah();
-    printf("BAH: %20llu %20llu %20llu\n", correctBAH, incorrectBAH, collisionBAH);
-
     tah();
-    printf("TAH: %20llu %20llu %20llu\n", correctTAH, incorrectTAH, collisionTAH);
-
     bta();
-    printf("BTA: %20llu %20llu %20llu\n", correctBTA, incorrectBTA, collisionBTA);
-
     col();
-    printf("COL: %20llu %20llu %20llu\n", correctCOL, incorrectCOL, collisionCOL);
-
     sat();
-    printf("SAT: %20llu %20llu %20llu\n", correctSAT, incorrectSAT, collisionSAT);
-
     two();
-    printf("TWO: %20llu %20llu %20llu\n", correctTWO, incorrectTWO, collisionTWO);
   }
+  printf("STA: %20llu %20llu %20llu\n", correctSTA, incorrectSTA, collisionSTA);
+  printf("BAH: %20llu %20llu %20llu\n", correctBAH, incorrectBAH, collisionBAH);
+  printf("TAH: %20llu %20llu %20llu\n", correctTAH, incorrectTAH, collisionTAH);
+  printf("BTA: %20llu %20llu %20llu\n", correctBTA, incorrectBTA, collisionBTA);
+  printf("COL: %20llu %20llu %20llu\n", correctCOL, incorrectCOL, collisionCOL);
+  printf("SAT: %20llu %20llu %20llu\n", correctSAT, incorrectSAT, collisionSAT);
+  printf("TWO: %20llu %20llu %20llu\n", correctTWO, incorrectTWO, collisionTWO);
 }
