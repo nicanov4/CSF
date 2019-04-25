@@ -102,7 +102,7 @@ int tah() {
 
 int bta() {
   auto in = make_tuple(branch_address, target_address, flag);
-  unsigned int hash = get<0>(in) & 31 + get<1>(in) & 31;
+  unsigned int hash = ((get<0>(in) & 31) << 5) + get<1>(in) & 31;
   if (get<1>(tableBTA[hash]) != get<0>(in)) {
     collisionBTA++;
     get<1>(tableBTA[hash]) = get<0>(in);
