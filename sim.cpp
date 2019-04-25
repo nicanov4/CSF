@@ -124,7 +124,7 @@ int main (int argc, char* argv[]) {
   incorrectTWO = 0;
   collisionTWO = 0;
 
-  while (scanf("%llx %llx %c", &branch_adress, &target_adress, &flag)) {
+  while (scanf("%llx %llx %c", &branch_adress, &target_adress, &flag) != EOF) {
     sta();
     bah();
     tah();
