@@ -79,6 +79,25 @@ int bah() {
 
 int tah() {
   auto in = make_tuple(branch_address, target_address, flag);
+
+  if (get<1>(tableTAH[get<1>(in) & 1023]) != get<0>(in)) {
+    collisionTAH++;
+    get<1>(tableTAH[get<1>(in) & 1023]) = get<0>(in);
+    if (get<2>(in) == 'T') {
+      get<0>(tableTAH[get<1>(in) & 1023]) = true;
+    } else {
+      get<0>(tableTAH[get<1>(in) & 1023]) = false;
+    }
+  } else if ((get<0>(tableTAH[get<1>(in) & 1023]) && get<2>(in) == 'T') || (!get<0>(tableTAH[get<1>(in) & 1023]) && get<2>(in) == 'N')) {
+    correctTAH++;
+  } else {
+    incorrectTAH++;
+    if (get<2>(in) == 'T') {
+      get<0>(tableTAH[get<1>(in) & 1023]) = true;
+    } else {
+      get<0>(tableTAH[get<1>(in) & 1023]) = false;
+    }
+  }
 }
 
 int bta() {
