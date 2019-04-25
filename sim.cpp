@@ -35,6 +35,7 @@ map<int, tuple<bool, unsigned long long int>> tableBTA;
 unsigned long long int correctCOL;
 unsigned long long int incorrectCOL;
 unsigned long long int collisionCOL;
+map<int, tuple<bool, unsigned long long int>> tableCOL;
 
 unsigned long long int correctSAT;
 unsigned long long int incorrectSAT;
@@ -59,43 +60,24 @@ int bah() {
     collisionBAH++;
     get<1>(tableBAH[get<0>(in) & 1023]) = get<0>(in);
     if (get<2>(in) == 'T') {
-      get<0>(tableBAH[get<0>(in) & 1023]) = 1;
+      get<0>(tableBAH[get<0>(in) & 1023]) = true;
     } else {
-      get<0>(tableBAH[get<0>(in) & 1023]) = 0;
+      get<0>(tableBAH[get<0>(in) & 1023]) = false;
     }
   } else if ((get<0>(tableBAH[get<0>(in) & 1023]) && get<2>(in) == 'T') || (!get<0>(tableBAH[get<0>(in) & 1023]) && get<2>(in) == 'N')) {
     correctBAH++;
   } else {
     incorrectBAH++;
     if (get<2>(in) == 'T') {
-      get<0>(tableBAH[get<0>(in) & 1023]) = 1;
+      get<0>(tableBAH[get<0>(in) & 1023]) = true;
     } else {
-      get<0>(tableBAH[get<0>(in) & 1023]) = 0;
+      get<0>(tableBAH[get<0>(in) & 1023]) = false;
     }
   }
 }
 
 int tah() {
   auto in = make_tuple(branch_address, target_address, flag);
-
-  if (get<1>(tableBAH[get<1>(in) & 1023]) != get<1>(in)) {
-    collisionTAH++;
-    get<1>(tableTAH[get<1>(in) & 1023]) = get<1>(in);
-    if (get<2>(in) == 'T') {
-      get<0>(tableTAH[get<1>(in) & 1023]) = 1;
-    } else {
-      get<0>(tableTAH[get<1>(in) & 1023]) = 0;
-    }
-  } else if ((get<0>(tableTAH[get<1>(in) & 1023]) && get<2>(in) == 'T') || (!get<0>(tableTAH[get<1>(in) & 1023]) && get<2>(in) == 'N')) {
-    correctTAH++;
-  } else {
-    incorrectTAH++;
-    if (get<2>(in) == 'T') {
-      get<0>(tableTAH[get<1>(in) & 1023]) = 1;
-    } else {
-      get<0>(tableTAH[get<1>(in) & 1023]) = 0;
-    }
-  }
 }
 
 int bta() {
@@ -103,7 +85,30 @@ int bta() {
 }
 
 int col() {
-  return 1;
+  auto in = make_tuple(branch_address, target_address, flag);
+
+  if (get<1>(tableCOL[get<0>(in) & 1023]) != get<0>(in)) {
+    if ((target_address < branch_address && flag == 'T') || (target_address > branch_address && flag == 'N')) {
+      correctCOL++;
+    } else {
+      incorrectCOL++;
+    }
+    get<1>(tableCOL[get<0>(in) & 1023]) = get<0>(in);
+    if (get<2>(in) == 'T') {
+      get<0>(tableCOL[get<0>(in) & 1023]) = true;
+    } else {
+      get<0>(tableCOL[get<0>(in) & 1023]) = false;
+    }
+  } else if ((get<0>(tableCOL[get<0>(in) & 1023]) && get<2>(in) == 'T') || (!get<0>(tableCOL[get<0>(in) & 1023]) && get<2>(in) == 'N')) {
+    correctCOL++;
+  } else {
+    incorrectCOL++;
+    if (get<2>(in) == 'T') {
+      get<0>(tableCOL[get<0>(in) & 1023]) = true;
+    } else {
+      get<0>(tableCOL[get<0>(in) & 1023]) = false;
+    }
+  }
 }
 
 int sat() {
