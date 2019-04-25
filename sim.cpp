@@ -118,15 +118,6 @@ int sat() {
   if (get<1>(tableSAT[get<0>(in) & 1023]) != get<0>(in)) {
     collisionSAT++;
     get<1>(tableSAT[get<0>(in) & 1023]) = get<0>(in);
-    if (get<2>(in) == 'T') {
-      if (get<0>(tableSAT[get<0>(in) & 1023]) < 3) {
-        get<0>(tableSAT[get<0>(in) & 1023]) += 1;
-      }
-    } else {
-      if (get<0>(tableSAT[get<0>(in) & 1023]) > 0) {
-        get<0>(tableSAT[get<0>(in) & 1023]) -= 1;
-      }
-    }
   } else if ((get<0>(tableSAT[get<0>(in) & 1023]) >= 2 && get<2>(in) == 'T') || (get<0>(tableSAT[get<0>(in) & 1023]) <= 1 && get<2>(in) == 'N')) {
     correctSAT++;
   } else {
