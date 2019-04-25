@@ -40,6 +40,7 @@ map<int, tuple<bool, unsigned long long int>> tableCOL;
 unsigned long long int correctSAT;
 unsigned long long int incorrectSAT;
 unsigned long long int collisionSAT;
+map<int, tuple<int, unsigned long long int>> tableSAT;
 
 unsigned long long int correctTWO;
 unsigned long long int incorrectTWO;
@@ -112,11 +113,38 @@ int col() {
 }
 
 int sat() {
-  return 1;
+  auto in = make_tuple(branch_address, target_address, flag);
+
+  if (get<1>(tableSAT[get<0>(in) & 1023]) != get<0>(in)) {
+    collisionSAT++;
+    get<1>(tableSAT[get<0>(in) & 1023]) = get<0>(in);
+    if (get<2>(in) == 'T') {
+      if (get<0>(tableSAT[get<0>(in) & 1023]) < 3) {
+        get<0>(tableSAT[get<0>(in) & 1023]) += 1;
+      }
+    } else {
+      if (get<0>(tableSAT[get<0>(in) & 1023]) > 0) {
+        get<0>(tableSAT[get<0>(in) & 1023]) -= 1;
+      }
+    }
+  } else if ((get<0>(tableSAT[get<0>(in) & 1023]) >= 2 && get<2>(in) == 'T') || (get<0>(tableSAT[get<0>(in) & 1023]) < 2 && get<2>(in) == 'N')) {
+    correctSAT++;
+  } else {
+    incorrectSAT++;
+    if (get<2>(in) == 'T') {
+      if (get<0>(tableSAT[get<0>(in) & 1023]) < 3) {
+        get<0>(tableSAT[get<0>(in) & 1023]) += 1;
+      }
+    } else {
+      if (get<0>(tableSAT[get<0>(in) & 1023]) > 0) {
+        get<0>(tableSAT[get<0>(in) & 1023]) -= 1;
+      }
+    }
+  }
 }
 
 int two() {
-  return 1;
+  auto in = make_tuple(branch_address, target_address, flag);
 }
 
 int main (int argc, char* argv[]) {
