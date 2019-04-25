@@ -7,8 +7,8 @@
 #include <map>
 using namespace std;
 
-unsigned long long int branch_adress;
-unsigned long long int target_adress;
+unsigned long long int branch_address;
+unsigned long long int target_address;
 char flag;
 
 unsigned long long int correctSTA;
@@ -45,7 +45,7 @@ unsigned long long int incorrectTWO;
 unsigned long long int collisionTWO;
 
 int sta() {
-  if ((target_adress < branch_adress && flag == 'T') || (target_adress > branch_adress && flag == 'N')) {
+  if ((target_address < branch_address && flag == 'T') || (target_address > branch_address && flag == 'N')) {
     correctSTA++;
   } else {
     incorrectSTA++;
@@ -53,7 +53,7 @@ int sta() {
 }
 
 int bah() {
-  auto in = make_tuple(branch_adress, target_adress, flag);
+  auto in = make_tuple(branch_address, target_address, flag);
 
   if (get<1>(tableBAH[get<0>(in) & 1023]) != get<0>(in)) {
     collisionBAH++;
@@ -76,7 +76,7 @@ int bah() {
 }
 
 int tah() {
-  auto in = make_tuple(branch_adress, target_adress, flag);
+  auto in = make_tuple(branch_address, target_address, flag);
 
   if (get<1>(tableBAH[get<1>(in) & 1023]) != get<1>(in)) {
     collisionTAH++;
@@ -147,7 +147,7 @@ int main (int argc, char* argv[]) {
   incorrectTWO = 0;
   collisionTWO = 0;
 
-  while (scanf("%llx %llx %c", &branch_adress, &target_adress, &flag) != EOF) {
+  while (scanf("%llx %llx %c", &branch_address, &target_address, &flag) != EOF) {
     sta();
     bah();
     tah();
