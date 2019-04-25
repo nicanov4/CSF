@@ -40,7 +40,7 @@ map<int, tuple<bool, unsigned long long int>> tableCOL;
 unsigned long long int correctSAT;
 unsigned long long int incorrectSAT;
 unsigned long long int collisionSAT;
-map<unsigned int, tuple<int, unsigned long long int>> tableSAT;
+map<int, tuple<unsigned int, unsigned long long int>> tableSAT;
 
 unsigned long long int correctTWO;
 unsigned long long int incorrectTWO;
