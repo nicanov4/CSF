@@ -101,7 +101,26 @@ int tah() {
 }
 
 int bta() {
-  return 1;
+  auto in = make_tuple(branch_address, target_address, flag);
+  unsigned int hash = get<0>(in) & 31 + get<1>(in) & 31;
+  if (get<1>(tableBTA[hash]) != get<0>(in)) {
+    collisionBTA++;
+    get<1>(tableBTA[hash]) = get<0>(in);
+    if (get<2>(in) == 'T') {
+      get<0>(tableBTA[hash]) = true;
+    } else {
+      get<0>(tableBTA[hash]) = false;
+    }
+  } else if ((get<0>(tableBTA[hash]) && get<2>(in) == 'T') || (!get<0>(tableBTA[hash]) && get<2>(in) == 'N')) {
+    correctBTA++;
+  } else {
+    incorrectBTA++;
+    if (get<2>(in) == 'T') {
+      get<0>(tableBTA[hash]) = true;
+    } else {
+      get<0>(tableBTA[hash]) = false;
+    }
+  }
 }
 
 int col() {
