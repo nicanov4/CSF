@@ -102,23 +102,23 @@ int tah() {
 
 int bta() {
   auto in = make_tuple(branch_address, target_address, flag);
-  unsigned int hash = ((get<0>(in) & 31) << 5) + get<1>(in) & 31;
-  if (get<1>(tableBTA[hash]) != get<0>(in)) {
+
+  if (get<1>(tableBTA[(((get<0>(in) & 31) << 5) + get<1>(in) & 31)]) != get<0>(in)) {
     collisionBTA++;
-    get<1>(tableBTA[hash]) = get<0>(in);
+    get<1>(tableBTA[(((get<0>(in) & 31) << 5) + get<1>(in) & 31)]) = get<0>(in);
     if (get<2>(in) == 'T') {
-      get<0>(tableBTA[hash]) = true;
+      get<0>(tableBTA[(((get<0>(in) & 31) << 5) + get<1>(in) & 31)]) = true;
     } else {
-      get<0>(tableBTA[hash]) = false;
+      get<0>(tableBTA[(((get<0>(in) & 31) << 5) + get<1>(in) & 31)]) = false;
     }
-  } else if ((get<0>(tableBTA[hash]) && get<2>(in) == 'T') || (!get<0>(tableBTA[hash]) && get<2>(in) == 'N')) {
+  } else if ((get<0>(tableBTA[(((get<0>(in) & 31) << 5) + get<1>(in) & 31)]) && get<2>(in) == 'T') || (!get<0>(tableBTA[(((get<0>(in) & 31) << 5) + get<1>(in) & 31)]) && get<2>(in) == 'N')) {
     correctBTA++;
   } else {
     incorrectBTA++;
     if (get<2>(in) == 'T') {
-      get<0>(tableBTA[hash]) = true;
+      get<0>(tableBTA[(((get<0>(in) & 31) << 5) + get<1>(in) & 31)]) = true;
     } else {
-      get<0>(tableBTA[hash]) = false;
+      get<0>(tableBTA[(((get<0>(in) & 31) << 5) + get<1>(in) & 31)]) = false;
     }
   }
 }
