@@ -198,7 +198,7 @@ int two() {
   if (get<1>(history[get<0>(in) & 1023]) != get<0>(in)) {
     collisionTWO++;
     get<1>(history[get<0>(in) & 1023]) = get<0>(in);
-    if (get<2>(in) == 'T')
+    if (get<2>(in) == 'T') {
       prediction[get<0>(history[get<0>(in) & 1023])] = true;
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) ^ 16;
     } else {
@@ -223,6 +223,7 @@ int two() {
     }
   }
 }
+
 
 int main (int argc, char* argv[]) {
   if (argc > 4) {
