@@ -206,19 +206,19 @@ int two() {
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) & 15;
     }
   } else if (((prediction[get<0>(history[get<0>(in) & 1023])]) && get<2>(in) == 'T') || ((!prediction[get<0>(history[get<0>(in) & 1023])]) && get<2>(in) == 'N')) {
-    correctBAH++;
+    correctTWO++;
     if (get<2>(in) == 'T') {
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) ^ 16;
     } else {
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) & 15;
     }
   } else {
-    incorrectBAH++;
+    incorrectTWO++;
     if (get<2>(in) == 'T') {
-      get<0>(tableBAH[get<0>(in) & 1023]) = true;
+      prediction[get<0>(history[get<0>(in) & 1023])] = true;
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) ^ 16;
     } else {
-      get<0>(tableBAH[get<0>(in) & 1023]) = false;
+      prediction[get<0>(history[get<0>(in) & 1023])] = false;
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) & 15;
     }
   }
