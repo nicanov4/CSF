@@ -199,10 +199,10 @@ int two() {
     collisionTWO++;
     get<1>(history[get<0>(in) & 1023]) = get<0>(in);
     if (get<2>(in) == 'T')
-      prediction[get<0>(history[get<0>(in) & 1023]) = true;
+      prediction[get<0>(history[get<0>(in) & 1023])] = true;
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) ^ 16;
     } else {
-      prediction[get<0>(history[get<0>(in) & 1023]) = false;
+      prediction[get<0>(history[get<0>(in) & 1023])] = false;
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) & 15;
     }
   } else if (((prediction[get<0>(history[get<0>(in) & 1023])) && get<2>(in) == 'T') || ((!prediction[get<0>(history[get<0>(in) & 1023])) && get<2>(in) == 'N')) {
