@@ -205,7 +205,7 @@ int two() {
       prediction[get<0>(history[get<0>(in) & 1023])] = false;
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) & 15;
     }
-  } else if (((prediction[get<0>(history[get<0>(in) & 1023])) && get<2>(in) == 'T') || ((!prediction[get<0>(history[get<0>(in) & 1023])) && get<2>(in) == 'N')) {
+  } else if (((prediction[get<0>(history[get<0>(in) & 1023])]) && get<2>(in) == 'T') || ((!prediction[get<0>(history[get<0>(in) & 1023])]) && get<2>(in) == 'N')) {
     correctBAH++;
     if (get<2>(in) == 'T') {
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) ^ 16;
