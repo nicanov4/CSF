@@ -104,7 +104,7 @@ int tah() {
 
 int bta() {
   auto in = make_tuple(branch_address, target_address, flag);
-  unsigned int hash = ((get<0>(in) & 31) + ((get<1>(in) & 31)));
+  unsigned int hash = (((get<0>(in) & 31) * 32) + ((get<1>(in) & 31)));
   if (get<1>(tableBTA[hash]) != get<0>(in)) {
     collisionBTA++;
     get<1>(tableBTA[hash]) = get<0>(in);
@@ -129,7 +129,8 @@ int col() {
   auto in = make_tuple(branch_address, target_address, flag);
 
   if (get<1>(tableCOL[get<0>(in) & 1023]) != get<0>(in)) {
-    if ((target_address < branch_address && flag == 'T') || (target_address > branch_address && flag == 'N')) {
+    if ((target_address < branch_address && flag == 'T')
+    || (target_address > branch_address && flag == 'N')) {
       correctCOL++;
     } else {
       incorrectCOL++;
@@ -140,7 +141,8 @@ int col() {
     } else {
       get<0>(tableCOL[get<0>(in) & 1023]) = false;
     }
-  } else if ((get<0>(tableCOL[get<0>(in) & 1023]) && get<2>(in) == 'T') || (!get<0>(tableCOL[get<0>(in) & 1023]) && get<2>(in) == 'N')) {
+  } else if ((get<0>(tableCOL[get<0>(in) & 1023]) && get<2>(in) == 'T')
+  || (!get<0>(tableCOL[get<0>(in) & 1023]) && get<2>(in) == 'N')) {
     correctCOL++;
   } else {
     incorrectCOL++;
@@ -205,7 +207,8 @@ int two() {
       prediction[get<0>(history[get<0>(in) & 1023])] = false;
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) & 15;
     }
-  } else if (((prediction[get<0>(history[get<0>(in) & 1023])]) && get<2>(in) == 'T') || ((!prediction[get<0>(history[get<0>(in) & 1023])]) && get<2>(in) == 'N')) {
+  } else if (((prediction[get<0>(history[get<0>(in) & 1023])]) && get<2>(in) == 'T')
+  || ((!prediction[get<0>(history[get<0>(in) & 1023])]) && get<2>(in) == 'N')) {
     correctTWO++;
     if (get<2>(in) == 'T') {
       get<0>(history[get<0>(in) & 1023]) = (get<0>(history[get<0>(in) & 1023]) >> 1) ^ 16;
