@@ -1,2 +1,2 @@
-branch: branch.cpp
-	g++ -o branch branch.cpp
+cache: cache.cpp
+	g++ -o cache cache.cpp
