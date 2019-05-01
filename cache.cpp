@@ -82,6 +82,7 @@ int main (int argc, char* argv[]) {
   while (scanf("%llx %c", &address, &flag) != EOF) {
     dir();
     ass();
+    printf("ASS: %20llu %20llu\n",hitsASS, missesASS);
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
