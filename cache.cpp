@@ -59,9 +59,6 @@ int ass() {
     }
   } else {
     if (countASS[address] == 0) {
-      //find least used and get it out of stack
-      //add new address to top of stack
-      //set countASS of old to 0
       int temp = stackASS.front();
       stackASS.remove(temp);
       countASS[temp] == 0;
