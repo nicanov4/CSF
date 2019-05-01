@@ -34,9 +34,10 @@ int dir() {
   int index = address & 8191;
   if (get<1>(cacheDIR[index]) == flag && get<0>(cacheDIR[index]) == address) {
     hitsDIR++;
+    cacheDIR[index] = in;
   } else if (get<1>(cacheDIR[index]) == flag && get<0>(cacheDIR[index]) != address) {
     hitsDIR++;
-    cacheDIR[index] = in;
+
   } else if (get<1>(cacheDIR[index]) != flag && get<0>(cacheDIR[index]) == address){
     missesDIR++;
   } else {
