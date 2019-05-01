@@ -46,7 +46,7 @@ int dir() {
 
 int ass() {
   auto in = make_tuple(address, flag);
-  if (counterASS < 9) {
+  if (counterASS < 8) {
     if (countASS[address] == 0) {
       missesASS++;
       countASS[address] += 1;
