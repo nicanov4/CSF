@@ -31,7 +31,9 @@ unsigned long long int missesPRF;
 
 int dir() {
   auto in = make_tuple(address, flag);
-  int index = address & 8191;
+  printf("%llx %c\n", address, flag);
+  int index = address & 13;
+  printf("%11x\n", index)
   if (get<1>(cacheDIR[index]) == flag) {
     hitsDIR++;
     cacheDIR[index] = in;
@@ -56,10 +58,10 @@ int main (int argc, char* argv[]) {
     }
   }
 
-  printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
+  /*printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
   printf("ASS: %20llu %20llu\n",hitsASS, missesASS);
   printf("SET: %20llu %20llu\n",hitsSET, missesSET);
   printf("BLK: %20llu %20llu\n",hitsBLK, missesBLK);
   printf("NWA: %20llu %20llu\n",hitsNWA, missesNWA);
-  printf("PRF: %20llu %20llu\n",hitsPRF, missesPRF);
+  printf("PRF: %20llu %20llu\n",hitsPRF, missesPRF);*/
 }
