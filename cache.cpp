@@ -49,7 +49,7 @@ int main (int argc, char* argv[]) {
   int count = 0;
   while (scanf("%llx %c", &address, &flag) != EOF) {
 
-
+    dir();
     count++;
     if (count > 127) {
       return 1;
