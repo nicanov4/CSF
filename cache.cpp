@@ -37,6 +37,7 @@ int dir() {
     cacheDIR[index] = in;
   } else {
     hitsDIR++;
+    cacheDIR[index] = in;
   }
 }
 
