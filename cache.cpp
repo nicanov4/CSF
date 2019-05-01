@@ -41,12 +41,17 @@ int dir() {
   }
 }
 
+int ass() {
+  
+}
+
 int main (int argc, char* argv[]) {
   if (argc > 4) {
     return 1;
   }
   while (scanf("%llx %c", &address, &flag) != EOF) {
     dir();
+    ass();
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
