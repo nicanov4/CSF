@@ -31,12 +31,14 @@ unsigned long long int missesPRF;
 
 int dir() {
   auto in = make_tuple(address, flag);
-  printf("%llx %c\n", address, flag);
+  //printf("%llx %c\n", address, flag);
   int index = address & 8192;
-  printf("%11x\n", index);
-  if (get<1>(cacheDIR[index]) == flag) {
-    hitsDIR++;
-    cacheDIR[index] = in;
+  //printf("%11x\n", index);
+  if (get<0>(cacheDIR[index]) == adress) {
+    if (get<1>(cacheDIR[index]) == flag) {
+      hitsDIR++;
+      cacheDIR[index] = in;
+    }
   } else {
     missesDIR++;
     cacheDIR[index] = in;
