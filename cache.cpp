@@ -58,8 +58,8 @@ int main (int argc, char* argv[]) {
     }
   }
 
-  /*printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
-  printf("ASS: %20llu %20llu\n",hitsASS, missesASS);
+  printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
+  /*printf("ASS: %20llu %20llu\n",hitsASS, missesASS);
   printf("SET: %20llu %20llu\n",hitsSET, missesSET);
   printf("BLK: %20llu %20llu\n",hitsBLK, missesBLK);
   printf("NWA: %20llu %20llu\n",hitsNWA, missesNWA);
