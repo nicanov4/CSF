@@ -34,7 +34,7 @@ int dir() {
   //printf("%llx %c\n", address, flag);
   int index = address & 8192;
   //printf("%11x\n", index);
-  if (get<0>(cacheDIR[index]) == adress) {
+  if (get<0>(cacheDIR[index]) == address) {
     if (get<1>(cacheDIR[index]) == flag) {
       hitsDIR++;
       cacheDIR[index] = in;
