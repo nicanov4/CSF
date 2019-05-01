@@ -33,6 +33,7 @@ int dir() {
   auto in = make_tuple(address, flag);
   printf("%llx %c\n", address, flag);
   int index = address & 13;
+  printf("%11x", index);
   if (get<1>(cacheDIR[index]) == flag) {
     hitsDIR++;
     cacheDIR[index] = in;
