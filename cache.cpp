@@ -35,7 +35,7 @@ int dir() {
   if (get<1>(cacheDIR[index]) == flag && get<0>(cacheDIR[index]) == address) {
     if (flag == 'S') {
       hitsDIR++;
-      //cacheDIR[index] = in;
+      cacheDIR[index] = in;
     } else {
       hitsDIR++;
     }
