@@ -44,10 +44,10 @@ int main (int argc, char* argv[]) {
     }
   }
 
-  printf("DIR: %20llu %20llu\n",hits,misses);
-  printf("ASS: %20llu %20llu\n",hits,misses);
-  printf("SET: %20llu %20llu\n",hits,misses);
-  printf("BLK: %20llu %20llu\n",hits,misses);
-  printf("NWA: %20llu %20llu\n",hits,misses);
-  printf("PRF: %20llu %20llu\n",hits,misses);
+  printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
+  printf("ASS: %20llu %20llu\n",hitsASS, missesASS);
+  printf("SET: %20llu %20llu\n",hitsSET, missesSET);
+  printf("BLK: %20llu %20llu\n",hitsBLK, missesBLK);
+  printf("NWA: %20llu %20llu\n",hitsNWA, missesNWA);
+  printf("PRF: %20llu %20llu\n",hitsPRF, missesPRF);
 }
