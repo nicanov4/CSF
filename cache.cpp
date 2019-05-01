@@ -47,14 +47,8 @@ int main (int argc, char* argv[]) {
   if (argc > 4) {
     return 1;
   }
-
-  int count = 0;
   while (scanf("%llx %c", &address, &flag) != EOF) {
     dir();
-    count++;
-    if (count > 127) {
-      return 1;
-    }
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
