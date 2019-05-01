@@ -31,12 +31,13 @@ unsigned long long int missesPRF;
 
 int dir() {
   auto in = make_tuple(address, flag);
-  if (get<1>(cacheDIR[address & 13]) != flag) {
+  unsigned long long int index = address & 13;
+  if (get<1>(cacheDIR[index]) != flag) {
     missesDIR++;
-    cacheDIR[address & 13] = in;
+    cacheDIR[index] = in;
   } else {
     hitsDIR++;
-    cacheDIR[address & 13] = in;
+    cacheDIR[index] = in;
   }
 }
 
