@@ -12,6 +12,7 @@ char flag;
 
 unsigned long long int hitsDIR;
 unsigned long long int missesDIR;
+map<int, tuple<unsigned long long int, char>> cacheDIR;
 
 unsigned long long int hitsASS;
 unsigned long long int missesASS;
@@ -27,6 +28,17 @@ unsigned long long int missesNWA;
 
 unsigned long long int hitsPRF;
 unsigned long long int missesPRF;
+
+int dir() {
+  auto in = make_tuple(address, flag);
+  unsigned long long int index = address & 13;
+  if (get<1>(cacheDIR[index]) == flag) {
+    missesDIR++;
+    cacheDIR[index] = in;
+  } else {
+    hitsDIR++;
+  }
+}
 
 int main (int argc, char* argv[]) {
 
