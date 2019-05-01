@@ -16,6 +16,9 @@ map<int, tuple<unsigned long long int, char>> cacheDIR;
 
 unsigned long long int hitsASS;
 unsigned long long int missesASS;
+int counterASS;
+vector<int> stackASS;
+map<unsigned long long int, int> countASS;
 
 unsigned long long int hitsSET;
 unsigned long long int missesSET;
@@ -42,13 +45,43 @@ int dir() {
 }
 
 int ass() {
-  
+  auto in = make_tuple(address, flag);
+  if (counterASS < 8192) {
+    if (countASS[address] == 0) {
+      missesASS++;
+      countASS[address] += 1;
+      stackASS.erase(address);
+      stackASS.push_back(address);
+    } else {
+      stackASS.erase(address);
+      stackASS.push_back(address);
+      hitsASS++;
+    }
+  } else {
+    if (countASS[address] == 0) {
+      //find least used and get it out of stack
+      //add new address to top of stack
+      //set countASS of old to 0
+      int temp = stackASS.front();
+      stackASS.erase(temp);
+      countASS[temp] == 0;
+      stackASS.push_back(address);
+      countASS[address] += 1;
+      missesASS++;
+    } else {
+      stackASS.erase(address);
+      stackASS.push_back(address);
+      hitsASS++;
+    }
+  }
 }
 
 int main (int argc, char* argv[]) {
   if (argc > 4) {
     return 1;
   }
+
+  counterASS = 0;
   while (scanf("%llx %c", &address, &flag) != EOF) {
     dir();
     ass();
