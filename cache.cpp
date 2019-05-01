@@ -2,7 +2,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <string.h>
-#include <vector>
+#include <list>
 #include <tuple>
 #include <map>
 using namespace std;
@@ -17,7 +17,7 @@ map<int, tuple<unsigned long long int, char>> cacheDIR;
 unsigned long long int hitsASS;
 unsigned long long int missesASS;
 int counterASS;
-vector<int> stackASS;
+list<int> stackASS;
 map<unsigned long long int, int> countASS;
 
 unsigned long long int hitsSET;
@@ -50,10 +50,10 @@ int ass() {
     if (countASS[address] == 0) {
       missesASS++;
       countASS[address] += 1;
-      stackASS.erase(address);
+      stackASS.remove(address);
       stackASS.push_back(address);
     } else {
-      stackASS.erase(address);
+      stackASS.remove(address);
       stackASS.push_back(address);
       hitsASS++;
     }
@@ -63,13 +63,13 @@ int ass() {
       //add new address to top of stack
       //set countASS of old to 0
       int temp = stackASS.front();
-      stackASS.erase(temp);
+      stackASS.remove(temp);
       countASS[temp] == 0;
       stackASS.push_back(address);
       countASS[address] += 1;
       missesASS++;
     } else {
-      stackASS.erase(address);
+      stackASS.remove(address);
       stackASS.push_back(address);
       hitsASS++;
     }
