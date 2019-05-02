@@ -2,7 +2,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <string.h>
-#include <list>
+#include <vector>
 #include <tuple>
 #include <map>
 using namespace std;
