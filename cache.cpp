@@ -99,8 +99,8 @@ int main (int argc, char* argv[]) {
   counterASS = 0;
   counterSET = 0;
   while (scanf("%llx %c", &address, &flag) != EOF) {
-    dir();
-    ass();
+    //dir();
+    //ass();
     set();
   }
 
