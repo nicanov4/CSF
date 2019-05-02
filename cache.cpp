@@ -46,7 +46,7 @@ int dir() {
 
 int ass() {
   auto in = make_tuple(address, flag);
-  if (cacheASS[address] != 0) {
+  if (cacheASS[address] == 0) {
     if (counterASS >= 8192) {
       lua.pop_back();
       lua.push_front(address);
