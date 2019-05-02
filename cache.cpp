@@ -17,7 +17,7 @@ map<int, tuple<unsigned long long, char>> cacheDIR;
 unsigned long long hitsASS;
 unsigned long long missesASS;
 int counterASS;
-list<unsigned long long> lua
+list<unsigned long long> lua;
 map<unsigned long long, int> cacheASS;
 
 unsigned long long hitsSET;
