@@ -70,7 +70,7 @@ int ass() {
 int set() {
   int index = address & 2047;
   list<unsigned long long> luaSET = cacheSET[index];
-  map<unsigned long long, int> inSET = ininSET[index];
+  map<unsigned long long, int> inSET = ininSET[address];
   if (inSET[address] == 0) {
     if (counterSET >= 8192) {
       inSET[luaSET.back()] = 0;
@@ -87,8 +87,8 @@ int set() {
     luaSET.remove(address);
     luaSET.push_front(address);
   }
-  cacheSET[index] = luaSET;
-  ininSET[index] = inSET;
+  cacheSET.insert(make_pair(index,luaSET));
+  ininSET.insert(make_pair(address,inSET));
 }
 
 int main (int argc, char* argv[]) {
