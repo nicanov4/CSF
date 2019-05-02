@@ -44,9 +44,7 @@ int dir() {
 }
 
 int ass() {
-  vector<unsigned long long int>::iterator curr
-    = find(cacheASS.begin(), cacheASS.end(), address);
-  if (curr != cacheASS.end()) {
+  if (find(cacheASS.begin(), cacheASS.end(), address) != cacheASS.end()) {
     cacheASS.erase(curr);
     cacheASS.insert(cacheASS.begin(), address);
     hitsASS++;
