@@ -17,11 +17,14 @@ map<int, tuple<unsigned long long, char>> cacheDIR;
 unsigned long long hitsASS;
 unsigned long long missesASS;
 int counterASS;
-list<unsigned long long> lua;
+list<unsigned long long> luaASS;
 map<unsigned long long, int> cacheASS;
 
 unsigned long long hitsSET;
 unsigned long long missesSET;
+int counterSET;
+map<int, list<unsigned long long>> cacheSET;
+map<int, map<unsigned long long, int>> ininSET;
 
 unsigned long long hitsBLK;
 unsigned long long missesBLK;
@@ -48,20 +51,44 @@ int ass() {
   auto in = make_tuple(address, flag);
   if (cacheASS[address] == 0) {
     if (counterASS >= 8192) {
-      cacheASS[lua.back()] = 0;
-      lua.pop_back();
-      lua.push_front(address);
+      cacheASS[luaASS.back()] = 0;
+      luaASS.pop_back();
+      luaASS.push_front(address);
     } else {
-      lua.push_front(address);
+      luaASS.push_front(address);
       counterASS++;
     }
     cacheASS[address] = 1;
     missesASS++;
   } else {
     hitsASS++;
-    lua.remove(address);
-    lua.push_front(address);
+    luaASS.remove(address);
+    luaASS.push_front(address);
   }
+}
+
+set() {
+  int index = address & 11;
+  list<unsigned long long> luaSET = cacheSET[index];
+  map<unsigned long long, int> inSET = ininSET[index];
+  if (inSET[address] == 0) {
+    if (counterSET >= 8192) {
+      inSET[luaSET.back()] = 0;
+      luaSET.pop_back();
+      luaSET.push_front(address);
+    } else {
+      luaSET.push_front(address);
+      counterSET++;
+    }
+    inSET[address] = 1;
+    missesSET++;
+  } else {
+    hitsSET++;
+    luaSET.remove(address);
+    luaSET.push_front(address);
+  }
+  cacheSET[index] = luaSET;
+  ininSET[index] = inSET;
 }
 
 int main (int argc, char* argv[]) {
@@ -70,6 +97,7 @@ int main (int argc, char* argv[]) {
   }
 
   counterASS = 0;
+  counterSET = 0;
   while (scanf("%llx %c", &address, &flag) != EOF) {
     dir();
     ass();
