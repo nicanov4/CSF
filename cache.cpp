@@ -52,6 +52,7 @@ int ass() {
       countASS[address] += 1;
       stackASS.remove(address);
       stackASS.push_back(address);
+      counterASS++;
     } else {
       stackASS.remove(address);
       stackASS.push_back(address);
@@ -65,6 +66,7 @@ int ass() {
       stackASS.push_back(address);
       countASS[address] += 1;
       missesASS++;
+      counterASS++;
     } else {
       stackASS.remove(address);
       stackASS.push_back(address);
