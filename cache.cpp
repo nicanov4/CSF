@@ -48,16 +48,17 @@ int ass() {
   auto in = make_tuple(address, flag);
   if (cacheASS[address] == 0) {
     if (counterASS >= 8192) {
+      cacheASS[lua.back()] = 0;
       lua.pop_back();
       lua.push_front(address);
     } else {
       lua.push_front(address);
       counterASS++;
     }
+    cacheASS[address] = 1;
     missesASS++;
   } else {
     hitsASS++;
-    cacheASS[address] = 1;
     lua.remove(address);
     lua.push_front(address);
   }
