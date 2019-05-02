@@ -50,7 +50,6 @@ int ass() {
     if (countASS[address] == 0) {
       missesASS++;
       countASS[address] += 1;
-      stackASS.remove(address);
       stackASS.push_back(address);
       counterASS++;
     } else {
