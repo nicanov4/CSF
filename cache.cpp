@@ -17,7 +17,8 @@ map<int, tuple<unsigned long long, char>> cacheDIR;
 unsigned long long hitsASS;
 unsigned long long missesASS;
 int counterASS;
-map<unsigned long long, char> cacheASS;
+list<unsigned long long> lua
+map<unsigned long long, int> cacheASS;
 
 unsigned long long hitsSET;
 unsigned long long missesSET;
@@ -44,8 +45,22 @@ int dir() {
 }
 
 int ass() {
-  list<unsigned long long>::iterator it;
-  it = find(cacheASS.begin(), cacheASS.end(), address);
+  auto in = make_tuple(address, flag);
+  if (cacheASS[address] != 0) {
+    if (counterASS >= 8192) {
+      lua.pop_back();
+      lua.push_front(address);
+    } else {
+      lua.push_front(address);
+      counterASS++;
+    }
+    missesASS++;
+  } else {
+    hitsASS++;
+    cacheASS[address] == 1;
+    lua.remove(address);
+    lua.push_front(address);
+  }
 }
 
 int main (int argc, char* argv[]) {
