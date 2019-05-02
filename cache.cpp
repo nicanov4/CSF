@@ -52,13 +52,20 @@ int ass() {
     stackASS.push_back(address);
     counterASS++;
   } else {
-    int temp = stackASS.front();
-    stackASS.remove(temp);
-    countASS[temp] == 0;
-    stackASS.push_back(address);
-    countASS[address] += 1;
-    missesASS++;
-    counterASS++;
+    if (countASS[address] == 0) {
+      int temp = stackASS.front();
+      stackASS
+      ove(temp);
+      countASS[temp] == 0;
+      stackASS.push_back(address);
+      countASS[address] += 1;
+      missesASS++;
+      counterASS++;
+    } else {
+      //stackASS.remove(address);
+      //stackASS.push_back(address);
+      hitsASS++;
+    }
   }
 }
 
