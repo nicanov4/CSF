@@ -57,7 +57,7 @@ int ass() {
     missesASS++;
   } else {
     hitsASS++;
-    cacheASS[address] == 1;
+    cacheASS[address] = 1;
     lua.remove(address);
     lua.push_front(address);
   }
