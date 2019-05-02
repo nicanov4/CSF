@@ -47,10 +47,17 @@ int dir() {
 int ass() {
   auto in = make_tuple(address, flag);
   if (counterASS < 8191) {
-    missesASS++;
-    countASS[address] += 1;
-    stackASS.push_back(address);
-    counterASS++;
+    if (countASS[address] == 0) {
+      missesASS++;
+      countASS[address] += 1;
+      stackASS.remove(address);
+      stackASS.push_back(address);
+      counterASS++;
+    } else {
+      stackASS.remove(address);
+      stackASS.push_back(address);
+      hitsASS++;
+    }
   } else {
     if (countASS[address] == 0) {
       int temp = stackASS.front();
@@ -61,8 +68,8 @@ int ass() {
       missesASS++;
       counterASS++;
     } else {
-      //stackASS.remove(address);
-      //stackASS.push_back(address);
+      stackASS.remove(address);
+      stackASS.push_back(address);
       hitsASS++;
     }
   }
