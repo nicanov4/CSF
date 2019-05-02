@@ -101,6 +101,7 @@ int main (int argc, char* argv[]) {
   while (scanf("%llx %c", &address, &flag) != EOF) {
     dir();
     ass();
+    set();
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
