@@ -67,7 +67,7 @@ int ass() {
   }
 }
 
-set() {
+int set() {
   int index = address & 11;
   list<unsigned long long> luaSET = cacheSET[index];
   map<unsigned long long, int> inSET = ininSET[index];
