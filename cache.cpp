@@ -17,8 +17,7 @@ map<int, tuple<unsigned long long int, char>> cacheDIR;
 unsigned long long int hitsASS;
 unsigned long long int missesASS;
 int counterASS;
-list<int> stackASS;
-map<unsigned long long int, int> countASS;
+vector<unsigned long long int> cacheASS;
 
 unsigned long long int hitsSET;
 unsigned long long int missesSET;
@@ -45,31 +44,19 @@ int dir() {
 }
 
 int ass() {
-  if (counterASS < 8191) {
-    if (countASS[address] == 0) {
-      missesASS++;
-      countASS[address] += 1;
-      stackASS.push_back(address);
-      counterASS++;
-    } else {
-      stackASS.remove(address);
-      stackASS.push_back(address);
-      hitsASS++;
-    }
+  vector<unsigned long long int>::iterator curr
+    = find(cacheASS.begin(), cacheASS.end(), address);
+  if (curr != cacheASS.end()) {
+    cacheASS.erase(curr);
+    cacheASS.insert(cacheASS.begin(), address);
+    hitsASS++;
   } else {
-    if (countASS[address] == 0) {
-      int temp = stackASS.front();
-      stackASS.pop_front();
-      countASS[temp] == 0;
-      stackASS.push_back(address);
-      countASS[address] += 1;
-      missesASS++;
+    if (counterASS >= 8192) {
+      cacheASS.pop_back();
+      cacheASS.insert(cacheASS.begin(), address);
       counterASS++;
-    } else {
-      stackASS.remove(address);
-      stackASS.push_back(address);
-      hitsASS++;
     }
+    missesASS++;
   }
 }
 
