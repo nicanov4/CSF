@@ -54,8 +54,7 @@ int ass() {
   } else {
     if (countASS[address] == 0) {
       int temp = stackASS.front();
-      stackASS
-      ove(temp);
+      stackASS.remove(temp);
       countASS[temp] == 0;
       stackASS.push_back(address);
       countASS[address] += 1;
