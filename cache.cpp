@@ -45,7 +45,7 @@ int dir() {
 
 int ass() {
   list<unsigned long long>::iterator it;
-  it = find(cacheASS.begin(), cacheASS.end() address);
+  it = find(cacheASS.begin(), cacheASS.end(), address);
 }
 
 int main (int argc, char* argv[]) {
