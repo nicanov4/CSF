@@ -54,8 +54,8 @@ int ass() {
       stackASS.push_back(address);
       counterASS++;
     } else {
-      stackASS.remove(address);
-      stackASS.push_back(address);
+      //stackASS.remove(address);
+      //stackASS.push_back(address);
       hitsASS++;
     }
   } else {
@@ -68,8 +68,8 @@ int ass() {
       missesASS++;
       counterASS++;
     } else {
-      stackASS.remove(address);
-      stackASS.push_back(address);
+      //stackASS.remove(address);
+      //stackASS.push_back(address);
       hitsASS++;
     }
   }
