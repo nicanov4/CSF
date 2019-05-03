@@ -35,9 +35,13 @@ vector<int> freqBLK[256];
 
 unsigned long long hitsNWA;
 unsigned long long missesNWA;
+unsigned long long cacheNWA[256][4][8];
+vector<int> freqNWA[256];
 
 unsigned long long hitsPRF;
 unsigned long long missesPRF;
+unsigned long long cachePRF[256][4][8];
+vector<int> freqPRF[256];
 
 int dir() {
   int index = address & 8191;
@@ -122,6 +126,37 @@ int blk() {
   }
 }
 
+int nwa() {
+  firstIndex = address >> 3 & 255;
+  secondIndex = address & 7;
+  hit = false;
+  for (int i = 0; i < 4; i++) {
+    if (cacheNWA[firstIndex][i][secondIndex] == address) {
+      hitsNWA += 1;
+      freqNWA[firstIndex].erase(find(freqNWA[firstIndex].begin(), freqNWA[firstIndex].end(), i));
+      freqNWA[firstIndex].insert(freqNWA[firstIndex].begin(), i);
+      hit = true;
+      break;
+    }
+  }
+  if (!hit) {
+    missesNWA += 1;
+    if (flag != 'S') {
+      int indexValue = 0;
+      if (freqNWA[firstIndex].size() >= 4) {
+        indexValue = freqNWA[firstIndex].back();
+        freqNWA[firstIndex].pop_back();
+      } else {
+        indexValue = freqNWA[firstIndex].size();
+      }
+      for (int j = 0; j < 8; j++) {
+        cacheNWA[firstIndex][indexValue][j] = address - secondIndex + j;
+      }
+      freqNWA[firstIndex].insert(freqNWA[firstIndex].begin(), indexValue);
+    }
+  }
+}
+
 int main (int argc, char* argv[]) {
   if (argc > 4) {
     return 1;
@@ -132,7 +167,8 @@ int main (int argc, char* argv[]) {
     //dir();
     //ass();
     //set();
-    blk();
+    //blk();
+    nwa();
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
