@@ -129,7 +129,7 @@ int blk() {
 int nwa() {
   int firstIndex = address >> 3 & 255;
   int secondIndex = address & 7;
-  hit = false;
+  bool  hit = false;
   for (int i = 0; i < 4; i++) {
     if (cacheNWA[firstIndex][i][secondIndex] == address) {
       hitsNWA += 1;
