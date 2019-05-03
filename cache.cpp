@@ -2,10 +2,11 @@
 #include <fstream>
 #include <stdio.h>
 #include <string.h>
+#include<algorithm>
 #include <list>
 #include <tuple>
 #include <map>
-#include <algorithm>
+
 using namespace std;
 
 unsigned long long address;
@@ -47,7 +48,6 @@ int dir() {
 }
 
 int ass() {
-  auto in = make_tuple(address, flag);
   if (cacheASS[address] == 0) {
     if (counterASS >= 8192) {
       cacheASS[luaASS.back()] = 0;
@@ -82,7 +82,7 @@ int set() {
     }
   } else {
     list<unsigned long long> newAddress;
-    newAddress.push_front(address)
+    newAddress.push_front(address);
     cacheSET.insert(make_pair(address & 2047), temp));
     missesSET++;
   }
@@ -94,7 +94,6 @@ int main (int argc, char* argv[]) {
   }
 
   counterASS = 0;
-  counterSET = 0;
   while (scanf("%llx %c", &address, &flag) != EOF) {
     //dir();
     //ass();
