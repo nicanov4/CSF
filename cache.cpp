@@ -132,6 +132,7 @@ int main (int argc, char* argv[]) {
     //dir();
     //ass();
     //set();
+    blk();
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
