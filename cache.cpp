@@ -69,20 +69,20 @@ int ass() {
 
 int set() {
   int index = address & 2047;
-  map<int, vector<unsigned long long>>::iterator iteratorSET1
+  map<int, vector<unsigned long long>>::iterator it1
     = cacheSET.find(index));
-    if (itSET != cacheSET.end()){
-      vector<unsigned long long>::iterator iteratorSET2
-        = find(iteratorSET1->second.begin(), iteratorSET1->second.end(), address);
-      if (iteratorSET2 != iteratorSET1->second.end()) {
+    if (it1 != cacheSET.end()){
+      vector<unsigned long long>::iterator it2
+        = find(it1->second.begin(), it1->second.end(), address);
+      if (it2 != it1->second.end()) {
         hitsSET += 1;
-        itSET->second.erase(itSETvec);
+        it1->second.erase(it2);
       } else {
         missesSET += 1;
-        if (itSET->second.size() >= 4)
-          itSET->second.pop_back();
+        if (it1->second.size() >= 4)
+          it1->second.pop_back();
       }
-      iteratorSET1->second.insert(iteratorSET->second.begin(), address);
+      it1->second.insert(it1->second.begin(), address);
     } else {
       missesSET += 1;
       vector<unsigned long long> temp;
