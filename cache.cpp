@@ -68,7 +68,7 @@ int ass() {
 
 int set() {
   int index = address & 2047;
-  map<unsigned long long, int> = cacheSET[index];
+  map<unsigned long long, int> luaList = cacheSET[index];
   /*if (cacheITSET != cacheSET.end()) {
     list<unsigned long long>::iterator listITSET = find(cacheITSET->second.begin, cacheITSET->second.end(), address);
     if (listITSET == cacheITSET->second.end()) {
