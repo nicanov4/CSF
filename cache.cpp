@@ -127,8 +127,8 @@ int blk() {
 }
 
 int nwa() {
-  firstIndex = address >> 3 & 255;
-  secondIndex = address & 7;
+  int firstIndex = address >> 3 & 255;
+  int secondIndex = address & 7;
   hit = false;
   for (int i = 0; i < 4; i++) {
     if (cacheNWA[firstIndex][i][secondIndex] == address) {
