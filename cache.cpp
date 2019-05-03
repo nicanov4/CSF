@@ -24,6 +24,7 @@ map<unsigned long long, int> cacheASS;
 
 unsigned long long hitsSET;
 unsigned long long missesSET;
+map<unsigned long long, list<unsigned long long> luaSET;
 map<unsigned long long, map<unsigned long long, int>> cacheSET;
 
 unsigned long long hitsBLK;
@@ -68,24 +69,25 @@ int ass() {
 
 int set() {
   int index = address & 2047;
-  map<unsigned long long, int> luaList = cacheSET[index];
-  /*if (cacheITSET != cacheSET.end()) {
-    list<unsigned long long>::iterator listITSET = find(cacheITSET->second.begin, cacheITSET->second.end(), address);
-    if (listITSET == cacheITSET->second.end()) {
-      missesSET++;
-      if (cacheITSET->second.size() >= 4) {
-    	  cacheITSET->second.pop_back();
-      }
+  map<unsigned long long, int> scSET = cacheSET[index];
+  list<unsigned long long> sluaSET = luaSET[index];
+  if(scSET[address] == 0) {
+    if (sluaSET.size() >= 4) {
+      scSET[sluaSET.back()] = 0;
+      sluaSET.pop_back();
+      sluaSET.push_front(address);
     } else {
-      hitsSET++;
-      cacheITSET->second.remove(listITSET)
+      sluaSET.push_front(address);
     }
-  } else {
-    list<unsigned long long> newAddress;
-    newAddress.push_front(address);
-    cacheSET.insert(make_pair(address & 2047), newAddress));
+    scSET[address] = 1;
     missesSET++;
-  }*/
+  } else {
+    hitsSET++;
+    sluaSET.remove(address);
+    luaASS.push_front(address);
+  }
+  luaSET[index] = sluaSET;
+  cacheSET[index] = scSET;
 }
 
 int main (int argc, char* argv[]) {
