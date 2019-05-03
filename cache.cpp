@@ -103,8 +103,7 @@ int blk() {
   bool hit = false;
   for (int j = 0; j < 4; j++) {
     if (cacheBLK[firstIndex][j][secondIndex] == address) {
-      unsigned long long temp = find(freqBLK[firstIndex].begin(), freqBLK[firstIndex].end(), j)
-      freqBLK[firstIndex].erase(temp);
+      freqBLK[firstIndex].erase(find(freqBLK[firstIndex].begin(), freqBLK[firstIndex].end(), j));
       freqBLK[firstIndex].insert(freqBLK[firstIndex].begin(), j);
       hitsBLK++;
       hit = true;
@@ -133,8 +132,7 @@ int nwa() {
   bool  hit = false;
   for (int j = 0; j < 4; j++) {
     if (cacheNWA[firstIndex][j][secondIndex] == address) {
-      unsigned long long temp = find(freqNWA[firstIndex].begin(), freqNWA[firstIndex].end(), j);
-      freqNWA[firstIndex].erase(temp);
+      freqNWA[firstIndex].erase(find(freqNWA[firstIndex].begin(), freqNWA[firstIndex].end(), j));
       freqNWA[firstIndex].insert(freqNWA[firstIndex].begin(), j);
       hitsNWA++;
       hit = true;
@@ -165,8 +163,7 @@ int prf() {
   bool hit = false;
   for (int j = 0; j < 4; j++) {
     if (cachePRF[firstIndex][j][secondIndex] == address) {
-      unsigned long long temp = find(freqNWA[firstIndex].begin(), freqNWA[firstIndex].end(), j);
-      freqPRF[firstIndex].erase(find(temp);
+      freqPRF[firstIndex].erase(find(find(freqNWA[firstIndex].begin(), freqNWA[firstIndex].end(), j));
       freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), j);
       hitsPRF++;
       hit = true;
@@ -196,8 +193,7 @@ int prf() {
     bool hit2 = false;
     for (int k = 0; k < 4; k++) {
       if (cachePRF[firstIndex][k][secondIndex] == address) {
-        unsigned long long temp2 = find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), k);
-        freqPRF[firstIndex].erase(temp2);
+        freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), k));
         freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), k);
         hit2 = true;
         break;
