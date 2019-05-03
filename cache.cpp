@@ -19,12 +19,12 @@ map<int, tuple<unsigned long long, char>> cacheDIR;
 unsigned long long hitsASS;
 unsigned long long missesASS;
 int counterASS;
-list<unsigned long long> luaASS;
-map<unsigned long long, int> cacheASS;
+map<unsigned long long, map<unsigned long long, int>> cacheASS;
 
 unsigned long long hitsSET;
 unsigned long long missesSET;
-map<int, list<unsigned long long>> cacheSET;
+list<unsigned long long> luaSET;
+map<unsigned long long, int> cacheSET;
 
 unsigned long long hitsBLK;
 unsigned long long missesBLK;
@@ -68,8 +68,8 @@ int ass() {
 
 int set() {
   int index = address & 2047;
-  map<int, list<unsigned long long> >::iterator cacheITSET = cacheSET.find(index);
-  if (cacheITSET != cacheSET.end()) {
+  map<unsigned long long, int> = cacheSET[index];
+  /*if (cacheITSET != cacheSET.end()) {
     list<unsigned long long>::iterator listITSET = find(cacheITSET->second.begin, cacheITSET->second.end(), address);
     if (listITSET == cacheITSET->second.end()) {
       missesSET++;
@@ -85,7 +85,7 @@ int set() {
     newAddress.push_front(address);
     cacheSET.insert(make_pair(address & 2047), newAddress));
     missesSET++;
-  }
+  }*/
 }
 
 int main (int argc, char* argv[]) {
