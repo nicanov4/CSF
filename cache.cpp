@@ -24,7 +24,7 @@ map<unsigned long long, int> cacheASS;
 
 unsigned long long hitsSET;
 unsigned long long missesSET;
-map<unsigned long long, list<unsigned long long> luaSET;
+map<unsigned long long, list<unsigned long long>> luaSET;
 map<unsigned long long, map<unsigned long long, int>> cacheSET;
 
 unsigned long long hitsBLK;
