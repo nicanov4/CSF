@@ -157,6 +157,65 @@ int nwa() {
   }
 }
 
+int prf() {
+  int firstIndex = hasher(address >> 3, 8);
+  int secondIndex = hasher(address, 3);
+  bool hit = false;
+  for (int i = 0; i < 4; i++) {
+    if (cachePRF[firstIndex][i][secondIndex] == address) {
+      hitsPRF += 1;
+      freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), i));
+      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), i);
+      hit = true;
+      break;
+    }
+  }
+  if (!hit) {
+    missesPRF += 1;
+    if (flag != 'S') {
+      int indexValue = 0;
+      if (freqPRF[firstIndex].size() >= 4) {
+        indexValue = freqPRF[firstIndex].back();
+        freqPRF[firstIndex].pop_back();
+      } else {
+        indexValue = freqPRF[firstIndex].size();
+      }
+      for (int j = 0; j < 8; j++) {
+        cachePRF[firstIndex][indexValue][j] = address - secondIndex + j;
+      }
+      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), indexValue);
+    }
+  }
+  if (!hit && flag != 'S') {
+    address = address + 8;
+    firstIndex = hasher(address >> 3, 8);
+    secondIndex = hasher(address, 3);
+    bool hit2 = false;
+    for (int i = 0; i < 4; i++) {
+      if (cachePRF[firstIndex][i][secondIndex] == address) {
+        freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), i));
+        freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), i);
+        hit2 = true;
+        break;
+      }
+    }
+    if (!hit2) {
+      int indexValue = 0;
+      if (freqPRF[firstIndex].size() >= 4) {
+        indexValue = freqPRF[firstIndex].back();
+        freqPRF[firstIndex].pop_back();
+      } else {
+        indexValue = freqPRF[firstIndex].size();
+      }
+      for (int j = 0; j < 8; j++) {
+        cachePRF[firstIndex][indexValue][j] = address - secondIndex + j;
+      }
+      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), indexValue);
+      }
+    }
+  }
+}
+
 int main (int argc, char* argv[]) {
   if (argc > 4) {
     return 1;
@@ -168,7 +227,8 @@ int main (int argc, char* argv[]) {
     //ass();
     //set();
     //blk();
-    nwa();
+    //nwa();
+    prf();
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
