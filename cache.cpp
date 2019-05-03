@@ -188,8 +188,8 @@ int prf() {
   }
   if (!hit && flag != 'S') {
     address = address + 8;
-    firstIndex = hasher(address >> 3, 8);
-    secondIndex = hasher(address, 3);
+    firstIndex = address >> 3 & 255;
+    secondIndex = address & 7;
     bool hit2 = false;
     for (int i = 0; i < 4; i++) {
       if (cachePRF[firstIndex][i][secondIndex] == address) {
