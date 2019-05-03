@@ -5,6 +5,7 @@
 #include <list>
 #include <tuple>
 #include <map>
+#include<algorithm>
 using namespace std;
 
 unsigned long long address;
@@ -24,7 +25,6 @@ unsigned long long hitsSET;
 unsigned long long missesSET;
 int counterSET;
 map<int, list<unsigned long long>> cacheSET;
-map<int, map<unsigned long long, int>> ininSET;
 
 unsigned long long hitsBLK;
 unsigned long long missesBLK;
@@ -69,22 +69,27 @@ int ass() {
 
 int set() {
   int index = address & 2047;
-  if (ininSET[index][address] == 0) {
-    if (counterSET >= 8192) {
-      ininSET[index][cacheSET[index].back()] = 0;
-      cacheSET[index].pop_back();
-      cacheSET[index].push_front(address);
+  map<int, vector<unsigned long long>>::iterator iteratorSET1
+    = cacheSET.find(index));
+    if (itSET != cacheSET.end()){
+      vector<unsigned long long>::iterator iteratorSET2
+        = find(iteratorSET1->second.begin(), iteratorSET1->second.end(), address);
+      if (iteratorSET2 != iteratorSET1->second.end()) {
+        hitsSET += 1;
+        itSET->second.erase(itSETvec);
+      } else {
+        missesSET += 1;
+        if (itSET->second.size() >= 4)
+          itSET->second.pop_back();
+      }
+      iteratorSET1->second.insert(iteratorSET->second.begin(), address);
     } else {
-      cacheSET[index].push_front(address);
-      counterSET++;
+      missesSET += 1;
+      vector<unsigned long long> temp;
+      temp.insert(temp.begin(), address);
+      cacheSET.insert(make_pair(hasher(address, 11), temp));
     }
-    ininSET[index][address] = 1;
-    missesSET++;
-  } else {
-    hitsSET++;
-    cacheSET[index].remove(address);
-    cacheSET[index].push_front(address);
-  }
+
 }
 
 int main (int argc, char* argv[]) {
