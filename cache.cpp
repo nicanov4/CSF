@@ -211,10 +211,10 @@ int prf() {
         cachePRF[firstIndex][indexValue][j] = address - secondIndex + j;
       }
       freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), indexValue);
-      }
     }
   }
 }
+
 
 int main (int argc, char* argv[]) {
   if (argc > 4) {
