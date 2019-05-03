@@ -93,8 +93,8 @@ int set() {
 }
 
 int blk() {
-  int firstIndex = hasher(address >> 3, 8);
-  int secondIndex = hasher(address, 3);
+  int firstIndex = address >> 3 & 255;
+  int secondIndex = address & 7;
   bool hit = false;
   for (int i = 0; i < 4; i++) {
     if (cacheBLK[firstIndex][i][secondIndex] == address) {
