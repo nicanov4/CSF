@@ -158,12 +158,13 @@ int nwa() {
 }
 
 int prf() {
+  bool hit = false;
   int firstIndex = address >> 3 & 255;
   int secondIndex = address & 7;
-  bool hit = false;
+
   for (int j = 0; j < 4; j++) {
     if (cachePRF[firstIndex][j][secondIndex] == address) {
-      freqPRF[firstIndex].erase(find(freqNWA[firstIndex].begin(), freqNWA[firstIndex].end(), j));
+      freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqNWA[firstIndex].end(), j));
       freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), j);
       hitsPRF++;
       hit = true;
@@ -171,7 +172,6 @@ int prf() {
     }
   }
   if (!hit) {
-    missesPRF++;
     if (flag == 'L') {
       int index = 0;
       if (freqPRF[firstIndex].size() < 4) {
@@ -185,12 +185,14 @@ int prf() {
       }
       freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), index);
     }
+    missesPRF++;
   }
   if (!hit && flag == 'L') {
+    bool hit2 = false;
     address += 8;
     firstIndex = address >> 3 & 255;
     secondIndex = address & 7;
-    bool hit2 = false;
+
     for (int k = 0; k < 4; k++) {
       if (cachePRF[firstIndex][k][secondIndex] == address) {
         freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), k));
@@ -226,9 +228,9 @@ int main (int argc, char* argv[]) {
     //dir();
     //ass();
     //set();
-    blk();
+    //blk();
     //nwa();
-    //prf();
+    prf();
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
