@@ -101,28 +101,29 @@ int blk() {
   int firstIndex = address >> 3 & 255;
   int secondIndex = address & 7;
   bool hit = false;
-  for (int i = 0; i < 4; i++) {
-    if (cacheBLK[firstIndex][i][secondIndex] == address) {
-      hitsBLK += 1;
-      freqBLK[firstIndex].erase(find(freqBLK[firstIndex].begin(), freqBLK[firstIndex].end(), i));
-      freqBLK[firstIndex].insert(freqBLK[firstIndex].begin(), i);
+  for (int j = 0; j < 4; j++) {
+    if (cacheBLK[firstIndex][j][secondIndex] == address) {
+      unsigned long long temp = find(freqBLK[firstIndex].begin(), freqBLK[firstIndex].end(), j)
+      freqBLK[firstIndex].erase(temp);
+      freqBLK[firstIndex].insert(freqBLK[firstIndex].begin(), j);
+      hitsBLK++;
       hit = true;
       break;
     }
   }
   if (!hit) {
-    missesBLK += 1;
-    int indexValue = 0;
-    if (freqBLK[firstIndex].size() >= 4) {
-      indexValue = freqBLK[firstIndex].back();
-      freqBLK[firstIndex].pop_back();
+    int index = 0;
+    if (freqBLK[firstIndex].size() < 4) {
+      index = freqBLK[firstIndex].size();
     } else {
-      indexValue = freqBLK[firstIndex].size();
+      index = freqBLK[firstIndex].back();
+      freqBLK[firstIndex].pop_back();
     }
-    for (int j = 0; j < 8; j++) {
-      cacheBLK[firstIndex][indexValue][j] = address - secondIndex + j;
+    for (int i = 0; i < 8; i++) {
+      cacheBLK[firstIndex][index][i] = address - secondIndex + i;
     }
-    freqBLK[firstIndex].insert(freqBLK[firstIndex].begin(), indexValue);
+    freqBLK[firstIndex].insert(freqBLK[firstIndex].begin(), index);
+    missesBLK++;
   }
 }
 
@@ -130,30 +131,31 @@ int nwa() {
   int firstIndex = address >> 3 & 255;
   int secondIndex = address & 7;
   bool  hit = false;
-  for (int i = 0; i < 4; i++) {
-    if (cacheNWA[firstIndex][i][secondIndex] == address) {
-      hitsNWA += 1;
-      freqNWA[firstIndex].erase(find(freqNWA[firstIndex].begin(), freqNWA[firstIndex].end(), i));
-      freqNWA[firstIndex].insert(freqNWA[firstIndex].begin(), i);
+  for (int j = 0; j < 4; j++) {
+    if (cacheNWA[firstIndex][j][secondIndex] == address) {
+      unsigned long long temp = find(freqNWA[firstIndex].begin(), freqNWA[firstIndex].end(), j);
+      freqNWA[firstIndex].erase(temp);
+      freqNWA[firstIndex].insert(freqNWA[firstIndex].begin(), j);
+      hitsNWA++;
       hit = true;
       break;
     }
   }
   if (!hit) {
-    missesNWA += 1;
-    if (flag != 'S') {
-      int indexValue = 0;
-      if (freqNWA[firstIndex].size() >= 4) {
-        indexValue = freqNWA[firstIndex].back();
-        freqNWA[firstIndex].pop_back();
+    if (flag == 'L') {
+      int index = 0;
+      if (freqNWA[firstIndex].size() < 4) {
+        index= freqNWA[firstIndex].size();
       } else {
-        indexValue = freqNWA[firstIndex].size();
+        index = freqNWA[firstIndex].back();
+        freqNWA[firstIndex].pop_back();
       }
-      for (int j = 0; j < 8; j++) {
-        cacheNWA[firstIndex][indexValue][j] = address - secondIndex + j;
+      for (int i = 0; i < 8; i++) {
+        cacheNWA[firstIndex][index][i] = address - secondIndex + i;
       }
-      freqNWA[firstIndex].insert(freqNWA[firstIndex].begin(), indexValue);
+      freqNWA[firstIndex].insert(freqNWA[firstIndex].begin(), index);
     }
+    missesNWA++;
   }
 }
 
@@ -161,56 +163,58 @@ int prf() {
   int firstIndex = address >> 3 & 255;
   int secondIndex = address & 7;
   bool hit = false;
-  for (int i = 0; i < 4; i++) {
-    if (cachePRF[firstIndex][i][secondIndex] == address) {
-      hitsPRF += 1;
-      freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), i));
-      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), i);
+  for (int j = 0; j < 4; j++) {
+    if (cachePRF[firstIndex][j][secondIndex] == address) {
+      unsigned long long temp = find(freqNWA[firstIndex].begin(), freqNWA[firstIndex].end(), j);
+      freqPRF[firstIndex].erase(find(temp);
+      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), j);
+      hitsPRF++;
       hit = true;
       break;
     }
   }
   if (!hit) {
-    missesPRF += 1;
-    if (flag != 'S') {
-      int indexValue = 0;
-      if (freqPRF[firstIndex].size() >= 4) {
-        indexValue = freqPRF[firstIndex].back();
-        freqPRF[firstIndex].pop_back();
+    missesPRF++;
+    if (flag == 'L') {
+      int index = 0;
+      if (freqPRF[firstIndex].size() < 4) {
+        index = freqPRF[firstIndex].size();
       } else {
-        indexValue = freqPRF[firstIndex].size();
+        index = freqPRF[firstIndex].back();
+        freqPRF[firstIndex].pop_back();
       }
-      for (int j = 0; j < 8; j++) {
-        cachePRF[firstIndex][indexValue][j] = address - secondIndex + j;
+      for (int i = 0; i < 8; i++) {
+        cachePRF[firstIndex][index][i] = address - secondIndex + i;
       }
-      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), indexValue);
+      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), index);
     }
   }
-  if (!hit && flag != 'S') {
-    address = address + 8;
+  if (!hit && flag == 'L') {
+    address += 8;
     firstIndex = address >> 3 & 255;
     secondIndex = address & 7;
     bool hit2 = false;
-    for (int i = 0; i < 4; i++) {
-      if (cachePRF[firstIndex][i][secondIndex] == address) {
-        freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), i));
-        freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), i);
+    for (int k = 0; k < 4; k++) {
+      if (cachePRF[firstIndex][k][secondIndex] == address) {
+        unsigned long long temp2 = find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), k);
+        freqPRF[firstIndex].erase(temp2);
+        freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), k);
         hit2 = true;
         break;
       }
     }
     if (!hit2) {
-      int indexValue = 0;
-      if (freqPRF[firstIndex].size() >= 4) {
-        indexValue = freqPRF[firstIndex].back();
-        freqPRF[firstIndex].pop_back();
+      int index = 0;
+      if (freqPRF[firstIndex].size() < 4) {
+        index = freqPRF[firstIndex].size();
       } else {
-        indexValue = freqPRF[firstIndex].size();
+        index = freqPRF[firstIndex].back();
+        freqPRF[firstIndex].pop_back();
       }
-      for (int j = 0; j < 8; j++) {
-        cachePRF[firstIndex][indexValue][j] = address - secondIndex + j;
+      for (int o = 0; o < 8; o++) {
+        cachePRF[firstIndex][index][o] = address - secondIndex + o;
       }
-      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), indexValue);
+      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), index);
     }
   }
 }
