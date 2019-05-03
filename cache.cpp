@@ -83,7 +83,7 @@ int set() {
   } else {
     list<unsigned long long> newAddress;
     newAddress.push_front(address);
-    cacheSET.insert(make_pair(address & 2047), temp));
+    cacheSET.insert(make_pair(address & 2047), newAddress));
     missesSET++;
   }
 }
