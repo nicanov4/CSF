@@ -223,12 +223,12 @@ int main (int argc, char* argv[]) {
 
   counterASS = 0;
   while (scanf("%llx %c", &address, &flag) != EOF) {
-    dir();
-    ass();
-    set();
-    blk();
-    nwa();
-    prf();
+    //dir();
+    //ass();
+    //set();
+    //blk();
+    //nwa();
+    //prf();
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
