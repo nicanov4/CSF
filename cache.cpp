@@ -29,6 +29,8 @@ map<unsigned long long, map<unsigned long long, int>> cacheSET;
 
 unsigned long long hitsBLK;
 unsigned long long missesBLK;
+unsigned long long cacheBLK[256][4][8];
+vector<int> freqBLK[256];
 
 unsigned long long hitsNWA;
 unsigned long long missesNWA;
@@ -90,6 +92,35 @@ int set() {
   cacheSET[index] = scSET;
 }
 
+int blk() {
+  int firstIndex = hasher(address >> 3, 8);
+  int secondIndex = hasher(address, 3);
+  bool hit = false;
+  for (int i = 0; i < 4; i++) {
+    if (cacheBLK[firstIndex][i][secondIndex] == address) {
+      hitsBLK += 1;
+      freqBLK[firstIndex].erase(find(freqBLK[firstIndex].begin(), freqBLK[firstIndex].end(), i));
+      freqBLK[firstIndex].insert(freqBLK[firstIndex].begin(), i);
+      hit = true;
+      break;
+    }
+  }
+  if (!hit) {
+    missesBLK += 1;
+    int indexValue = 0;
+    if (freqBLK[firstIndex].size() >= 4) {
+      indexValue = freqBLK[firstIndex].back();
+      freqBLK[firstIndex].pop_back();
+    } else {
+      indexValue = freqBLK[firstIndex].size();
+    }
+    for (int j = 0; j < 8; j++) {
+      cacheBLK[firstIndex][indexValue][j] = address - secondIndex + j;
+    }
+    freqBLK[firstIndex].insert(freqBLK[firstIndex].begin(), indexValue);
+  }
+}
+
 int main (int argc, char* argv[]) {
   if (argc > 4) {
     return 1;
@@ -97,9 +128,9 @@ int main (int argc, char* argv[]) {
 
   counterASS = 0;
   while (scanf("%llx %c", &address, &flag) != EOF) {
-    dir();
-    ass();
-    set();
+    //dir();
+    //ass();
+    //set();
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
