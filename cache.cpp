@@ -227,8 +227,8 @@ int main (int argc, char* argv[]) {
     //ass();
     //set();
     //blk();
-    //nwa();
-    prf();
+    nwa();
+    //prf();
   }
 
   printf("DIR: %20llu %20llu\n",hitsDIR, missesDIR);
