@@ -226,8 +226,8 @@ int main (int argc, char* argv[]) {
     //dir();
     //ass();
     //set();
-    //blk();
-    nwa();
+    blk();
+    //nwa();
     //prf();
   }
 
