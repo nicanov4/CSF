@@ -164,7 +164,7 @@ int prf() {
 
   for (int j = 0; j < 4; j++) {
     if (cachePRF[firstIndex][j][secondIndex] == address) {
-      freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqNWA[firstIndex].end(), j));
+      freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), j));
       freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), j);
       hitsPRF++;
       hit = true;
