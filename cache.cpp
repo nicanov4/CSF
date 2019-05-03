@@ -23,9 +23,7 @@ map<unsigned long long, int> cacheASS;
 
 unsigned long long hitsSET;
 unsigned long long missesSET;
-int counterSET;
 map<int, list<unsigned long long>> cacheSET;
-map<int, map<unsigned long long, int>> inSET;
 
 unsigned long long hitsBLK;
 unsigned long long missesBLK;
