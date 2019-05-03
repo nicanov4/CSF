@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include<algorithm>
+#include<vector>
 #include <list>
 #include <tuple>
 #include <map>
