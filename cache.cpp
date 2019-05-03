@@ -31,17 +31,17 @@ map<unsigned long long, map<unsigned long long, int>> cacheSET;
 unsigned long long hitsBLK;
 unsigned long long missesBLK;
 unsigned long long cacheBLK[256][4][8];
-vector<int> freqBLK[256];
+vector<int> luaBLK[256];
 
 unsigned long long hitsNWA;
 unsigned long long missesNWA;
 unsigned long long cacheNWA[256][4][8];
-vector<int> freqNWA[256];
+vector<int> luaNWA[256];
 
 unsigned long long hitsPRF;
 unsigned long long missesPRF;
 unsigned long long cachePRF[256][4][8];
-vector<int> freqPRF[256];
+vector<int> luaPRF[256];
 
 int dir() {
   int index = address & 8191;
@@ -103,8 +103,8 @@ int blk() {
   bool hit = false;
   for (int j = 0; j < 4; j++) {
     if (cacheBLK[firstIndex][j][secondIndex] == address) {
-      freqBLK[firstIndex].erase(find(freqBLK[firstIndex].begin(), freqBLK[firstIndex].end(), j));
-      freqBLK[firstIndex].insert(freqBLK[firstIndex].begin(), j);
+      luaBLK[firstIndex].erase(find(luaBLK[firstIndex].begin(), luaBLK[firstIndex].end(), j));
+      luaBLK[firstIndex].insert(luaBLK[firstIndex].begin(), j);
       hitsBLK++;
       hit = true;
       break;
@@ -112,16 +112,16 @@ int blk() {
   }
   if (!hit) {
     int index = 0;
-    if (freqBLK[firstIndex].size() < 4) {
-      index = freqBLK[firstIndex].size();
+    if (luaBLK[firstIndex].size() < 4) {
+      index = luaBLK[firstIndex].size();
     } else {
-      index = freqBLK[firstIndex].back();
-      freqBLK[firstIndex].pop_back();
+      index = luaBLK[firstIndex].back();
+      luaBLK[firstIndex].pop_back();
     }
     for (int i = 0; i < 8; i++) {
       cacheBLK[firstIndex][index][i] = address - secondIndex + i;
     }
-    freqBLK[firstIndex].insert(freqBLK[firstIndex].begin(), index);
+    luaBLK[firstIndex].insert(luaBLK[firstIndex].begin(), index);
     missesBLK++;
   }
 }
@@ -132,8 +132,8 @@ int nwa() {
   bool  hit = false;
   for (int j = 0; j < 4; j++) {
     if (cacheNWA[firstIndex][j][secondIndex] == address) {
-      freqNWA[firstIndex].erase(find(freqNWA[firstIndex].begin(), freqNWA[firstIndex].end(), j));
-      freqNWA[firstIndex].insert(freqNWA[firstIndex].begin(), j);
+      luaNWA[firstIndex].erase(find(luaNWA[firstIndex].begin(), luaNWA[firstIndex].end(), j));
+      luaNWA[firstIndex].insert(luaNWA[firstIndex].begin(), j);
       hitsNWA++;
       hit = true;
       break;
@@ -142,16 +142,16 @@ int nwa() {
   if (!hit) {
     if (flag == 'L') {
       int index = 0;
-      if (freqNWA[firstIndex].size() < 4) {
-        index= freqNWA[firstIndex].size();
+      if (luaNWA[firstIndex].size() < 4) {
+        index= luaNWA[firstIndex].size();
       } else {
-        index = freqNWA[firstIndex].back();
-        freqNWA[firstIndex].pop_back();
+        index = luaNWA[firstIndex].back();
+        luaNWA[firstIndex].pop_back();
       }
       for (int i = 0; i < 8; i++) {
         cacheNWA[firstIndex][index][i] = address - secondIndex + i;
       }
-      freqNWA[firstIndex].insert(freqNWA[firstIndex].begin(), index);
+      luaNWA[firstIndex].insert(luaNWA[firstIndex].begin(), index);
     }
     missesNWA++;
   }
@@ -164,8 +164,8 @@ int prf() {
 
   for (int j = 0; j < 4; j++) {
     if (cachePRF[firstIndex][j][secondIndex] == address) {
-      freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), j));
-      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), j);
+      luaPRF[firstIndex].erase(find(luaPRF[firstIndex].begin(), luaPRF[firstIndex].end(), j));
+      luaPRF[firstIndex].insert(luaPRF[firstIndex].begin(), j);
       hitsPRF++;
       hit = true;
       break;
@@ -174,16 +174,16 @@ int prf() {
   if (!hit) {
     if (flag == 'L') {
       int index = 0;
-      if (freqPRF[firstIndex].size() < 4) {
-        index = freqPRF[firstIndex].size();
+      if (luaPRF[firstIndex].size() < 4) {
+        index = luaPRF[firstIndex].size();
       } else {
-        index = freqPRF[firstIndex].back();
-        freqPRF[firstIndex].pop_back();
+        index = luaPRF[firstIndex].back();
+        luaPRF[firstIndex].pop_back();
       }
       for (int i = 0; i < 8; i++) {
         cachePRF[firstIndex][index][i] = address - secondIndex + i;
       }
-      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), index);
+      luaPRF[firstIndex].insert(luaPRF[firstIndex].begin(), index);
     }
     missesPRF++;
   }
@@ -195,24 +195,24 @@ int prf() {
 
     for (int k = 0; k < 4; k++) {
       if (cachePRF[firstIndex][k][secondIndex] == address) {
-        freqPRF[firstIndex].erase(find(freqPRF[firstIndex].begin(), freqPRF[firstIndex].end(), k));
-        freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), k);
+        luaPRF[firstIndex].erase(find(luaPRF[firstIndex].begin(), luaPRF[firstIndex].end(), k));
+        luaPRF[firstIndex].insert(luaPRF[firstIndex].begin(), k);
         hit2 = true;
         break;
       }
     }
     if (!hit2) {
       int index = 0;
-      if (freqPRF[firstIndex].size() < 4) {
-        index = freqPRF[firstIndex].size();
+      if (luaPRF[firstIndex].size() < 4) {
+        index = luaPRF[firstIndex].size();
       } else {
-        index = freqPRF[firstIndex].back();
-        freqPRF[firstIndex].pop_back();
+        index = luaPRF[firstIndex].back();
+        luaPRF[firstIndex].pop_back();
       }
       for (int o = 0; o < 8; o++) {
         cachePRF[firstIndex][index][o] = address - secondIndex + o;
       }
-      freqPRF[firstIndex].insert(freqPRF[firstIndex].begin(), index);
+      luaPRF[firstIndex].insert(luaPRF[firstIndex].begin(), index);
     }
   }
 }
