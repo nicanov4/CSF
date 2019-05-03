@@ -225,11 +225,11 @@ int main (int argc, char* argv[]) {
 
   counterASS = 0;
   while (scanf("%llx %c", &address, &flag) != EOF) {
-    //dir();
-    //ass();
-    //set();
-    //blk();
-    //nwa();
+    dir();
+    ass();
+    set();
+    blk();
+    nwa();
     prf();
   }
 
