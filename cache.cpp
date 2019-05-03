@@ -84,7 +84,7 @@ int set() {
   } else {
     hitsSET++;
     sluaSET.remove(address);
-    luaASS.push_front(address);
+    sluaSET.push_front(address);
   }
   luaSET[index] = sluaSET;
   cacheSET[index] = scSET;
