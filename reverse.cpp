@@ -9,8 +9,13 @@ using namespace std;
 
 int main (int argc, char* argv[]) {
   string x = "pendeho";
-  for (int i = x.size() - 1; i > -1; i--) {
-    cout << x[i];
+  int temp = x.size();
+  int temp2 = 0;
+  for (int i = 0; i < (x.size()/2); i++) {
+    temp2 = x[temp];
+    x[temp] = x[i];
+    x[i] = temp2;
   }
+  cout << x;
 
 }
