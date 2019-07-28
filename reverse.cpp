@@ -11,6 +11,7 @@ int main (int argc, char* argv[]) {
   string x = "pendeho";
   int temp = x.size();
   int temp2 = 0;
+  cout << temp;
   for (int i = 0; i < (x.size()/2); i++) {
     temp2 = x[temp];
     x[temp] = x[i];
